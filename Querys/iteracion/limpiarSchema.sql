@@ -1,0 +1,7 @@
+--LIMPIAR BASE DE DATOS
+DELETE FROM A_LECTOR_CARNET;
+DELETE FROM A_VISITANTE;
+DELETE FROM A_ESTABLECIMIENTO;
+delete from a_centro_comercial;
+Delete from a_espacio;
+commit;

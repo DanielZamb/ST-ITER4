@@ -9,6 +9,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.Establecimiento;
 import uniandes.isis2304.parranderos.negocio.LectorCarnet;
+import uniandes.isis2304.parranderos.negocio.Visitante;
 
 public class SQLLectorCarnet {
 	
@@ -57,5 +58,15 @@ public class SQLLectorCarnet {
 		q.setParameters(idVisitante);
 		return (List<Establecimiento>) q.executeList();
 	}
+	
+	public List<Visitante> darEstablecimientosVisitadosHoras(PersistenceManager pm, double inicio, double salida)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM"+  pa.darTablaLectorCarnet ()+ "WHERE HORAINGRESO = ?"+" AND HORASALIDA = ?");
+		q.setResultClass(Establecimiento.class);
+		q.setParameters(inicio,salida);
+		return (List<Visitante>) q.executeList();
+	}
+	
+	
 
 }

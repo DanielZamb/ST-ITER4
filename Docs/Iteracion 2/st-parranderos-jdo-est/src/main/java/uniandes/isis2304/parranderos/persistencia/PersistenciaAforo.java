@@ -3,14 +3,20 @@ package uniandes.isis2304.parranderos.persistencia;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
 
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import uniandes.isis2304.parranderos.negocio.TipoBebida;
+import uniandes.isis2304.parranderos.negocio.Visitante;
 
 public class PersistenciaAforo {
 
@@ -68,14 +74,7 @@ public class PersistenciaAforo {
 		tablas.add("LECTORCARNET");
 		tablas.add("CENTROCOMERCIAL");
 		tablas.add("ESTABLECIMIENTO");
-		tablas.add("PARQUEADERO");
-		tablas.add("ASCENSOR");
-		tablas.add("PASILLO");
-		tablas.add("BAÑO");
 		tablas.add("VISITANTE");
-		tablas.add("EMPLEADO");
-		tablas.add("CLIENTE");
-		tablas.add("DOMICILIARIO");
 		
 	}
 	
@@ -133,17 +132,76 @@ public class PersistenciaAforo {
 		sqlAforoMaximo = new SQLAforoMaximo(this);
 		sqlLectorCarnet = new SQLLectorCarnet(this);
 		sqlCentroComercial = new SQLCentroComercial(this);
-		sqlEstablecimiento = new SQLEstablecimiento(this);
-		sqlParqueadero = new SQLParqueadero(this);
-		sqlAscensor = new SQLAscensor(this);
-		sqlPasillo = new SQLPasillo(this);
-		sqlBaño = new SQLBaño(this);
+		sqlEstablecimiento = new SQLEstablecimiento(this);	
 		sqlVisitante = new SQLVisitante(this);
-		sqlEmpleado = new SQLEmpleado(this);
-		sqlCliente = new SQLCliente(this);
-		sqlDomiciliario = new SQLDomiciliario(this);
+			
+	}
+	
+	public String darSeqAforo() {
+		return tablas.get (0);
+	}
+	
+	public String darTablaEspacio() {
+		return tablas.get (1);
+	}
+	
+	public String darTablaAforoActual()
+	{
+		return tablas.get (2);
+	}
+	
+	public String darTablaAforoMaximo()
+	{
+		return tablas.get (3);
+	}
+	
+	public String darTablaLectorCarnet()
+	{
+		return tablas.get (4);
+	}
+	
+	public String darTablaCentroComercial()
+	{
+		return tablas.get (5);
+	}
+	
+	public String darTablaEstablecimiento()
+	{
+		return tablas.get (6);
+	}
+	
+	public String darTablaVisitante()
+	{
+		return tablas.get (7);
+	}
+	
+	
+	private long nextval()
+	{
+        long resp = sqlUtil.nextval (pmf.getPersistenceManager());
+        log.trace ("Generando secuencia: " + resp);
+        return resp;
+    }
+	
+	private String darDetalleException(Exception e) 
+	{
+		String resp = "";
+		if (e.getClass().getName().equals("javax.jdo.JDODataStoreException"))
+		{
+			JDODataStoreException je = (javax.jdo.JDODataStoreException) e;
+			return je.getNestedExceptions() [0].getMessage();
+		}
+		return resp;
+	}
+	
+	
+	public List<Visitante> darVisitantesAtendidos(double inicio, double salida)
+	{
 		
 		
 	}
+	
+	
+
 	
 }

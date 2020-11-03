@@ -61,7 +61,7 @@ public class SQLLectorCarnet {
 	
 	public List<Visitante> darEstablecimientosVisitadosHoras(PersistenceManager pm, double inicio, double salida)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM"+  pa.darTablaLectorCarnet ()+ "WHERE HORAINGRESO = ?"+" AND HORASALIDA = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM"+  pa.darTablaLectorCarnet ()+ "WHERE HORA_INGRESO = ?"+" AND HORA_SALIDA = ?");
 		q.setResultClass(Establecimiento.class);
 		q.setParameters(inicio,salida);
 		return (List<Visitante>) q.executeList();

@@ -37,22 +37,11 @@ public class PersistenciaAforo {
 	
 	private SQLEstablecimiento sqlEstablecimiento;
 	
-	private SQLParqueadero sqlParqueadero;
-	
-	private SQLAscensor sqlAscensor;
-	
-	private SQLPasillo sqlPasillo;
-	
-	private SQLBaño sqlBaño;
-	
 	private SQLVisitante sqlVisitante;
-	
-	private SQLEmpleado sqlEmpleado;
-	
-	private SQLCliente sqlCliente;
-	
-	private SQLDomiciliario sqlDomiciliario;
-	
+
+	private SQLTipoVisitante sqlTipoVisitante;
+
+	private SQLTipoLugar sqlTipoLugar;
 	
 	public PersistenciaAforo()
 	{
@@ -68,6 +57,8 @@ public class PersistenciaAforo {
 		tablas.add("CENTROCOMERCIAL");
 		tablas.add("ESTABLECIMIENTO");
 		tablas.add("VISITANTE");
+		tablas.add("TIPO_VISITANTE");
+		tablas.add("TIPO_LUGAR");
 		
 	}
 	
@@ -127,7 +118,8 @@ public class PersistenciaAforo {
 		sqlCentroComercial = new SQLCentroComercial(this);
 		sqlEstablecimiento = new SQLEstablecimiento(this);	
 		sqlVisitante = new SQLVisitante(this);
-			
+		sqlTipoVisitante = new SQLTipoVisitante(this);
+		sqlTipoLugar = new SQLTipoLugar(this);
 	}
 	
 	public String darSeqAforo() {
@@ -166,6 +158,16 @@ public class PersistenciaAforo {
 	public String darTablaVisitante()
 	{
 		return tablas.get (7);
+	}
+
+	public String darTablaTipoVisitante()
+	{
+		return tablas.get (8);
+	}
+
+	public String darTablaTipoLugar()
+	{
+		return tablas.get (9);
 	}
 	
 	

@@ -1,6 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
-public class CentroComercial {
+public class CentroComercial implements VOCentroComercial{
 	
 	private long id;
 	
@@ -47,4 +47,12 @@ public class CentroComercial {
 		this.direccion = direccion;
 	}
 
+	@Override
+	public String toString() {
+		return "CentroComercial{" +
+				"id=" + id +
+				", ciudad='" + ciudad + '\'' +
+				", direccion='" + direccion + '\'' +
+				'}';
+	}
 }

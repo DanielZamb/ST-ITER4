@@ -4,7 +4,7 @@ public class Visitante {
 	
 	private long id;
 	
-	private String tipoId;
+	private String tipo_identificacion;
 	
 	private String nombre;
 	
@@ -12,22 +12,22 @@ public class Visitante {
 	
 	private int telefono;
 	
-	private String nombreContacto;
+	private String nombre_contacto;
 	
-	private int telefonoContacto;
+	private int telefono_contacto;
 	
-	private String tipoVisitante;
+	private String tipo;
 	
 	public Visitante(long id, String tipoId, String nombre, String correo, int telefono, String nomC, int telC, String tipoV )
 	{
 		this.id = id;
-		this.tipoId = tipoId;
+		this.tipo_identificacion = tipoId;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.nombreContacto = nomC;
-		this.telefonoContacto = telC;
-		this.tipoVisitante = tipoV;
+		this.nombre_contacto = nomC;
+		this.telefono_contacto = telC;
+		this.tipo = tipoV;
 	}
 
 	public long getId() {
@@ -38,12 +38,12 @@ public class Visitante {
 		this.id = id;
 	}
 
-	public String getTipoId() {
-		return tipoId;
+	public String getTipo_identificacion() {
+		return tipo_identificacion;
 	}
 
-	public void setTipoId(String tipoId) {
-		this.tipoId = tipoId;
+	public void setTipo_identificacion(String tipo_identificacion) {
+		this.tipo_identificacion = tipo_identificacion;
 	}
 
 	public String getNombre() {
@@ -70,30 +70,41 @@ public class Visitante {
 		this.telefono = telefono;
 	}
 
-	public String getNombreContacto() {
-		return nombreContacto;
+	public String getNombre_contacto() {
+		return nombre_contacto;
 	}
 
-	public void setNombreContacto(String nombreContacto) {
-		this.nombreContacto = nombreContacto;
+	public void setNombre_contacto(String nombre_contacto) {
+		this.nombre_contacto = nombre_contacto;
 	}
 
-	public int getTelefonoContacto() {
-		return telefonoContacto;
+	public int getTelefono_contacto() {
+		return telefono_contacto;
 	}
 
-	public void setTelefonoContacto(int telefonoContacto) {
-		this.telefonoContacto = telefonoContacto;
+	public void setTelefono_contacto(int telefono_contacto) {
+		this.telefono_contacto = telefono_contacto;
 	}
 
-	public String getTipoVisitante() {
-		return tipoVisitante;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setTipoVisitante(String tipoVisitante) {
-		this.tipoVisitante = tipoVisitante;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Visitante{" +
+				"id=" + id +
+				", tipo_identificacion='" + tipo_identificacion + '\'' +
+				", nombre='" + nombre + '\'' +
+				", correo='" + correo + '\'' +
+				", telefono=" + telefono +
+				", nombre_contacto='" + nombre_contacto + '\'' +
+				", telefono_contacto=" + telefono_contacto +
+				", tipo='" + tipo + '\'' +
+				'}';
+	}
 }

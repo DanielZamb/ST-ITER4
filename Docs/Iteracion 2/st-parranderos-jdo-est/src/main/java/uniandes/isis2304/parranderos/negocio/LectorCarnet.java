@@ -1,75 +1,83 @@
 package uniandes.isis2304.parranderos.negocio;
 
-public class LectorCarnet {
+public class LectorCarnet implements VOLectorCarnet {
 
-	private long idLector;
+	private long id_lector;
 	
-	private long idEspacio;
+	private long id_espacio;
 	
-	private long idVisitante;
+	private long id_visitante;
 	
-	private String horaIngreso;
+	private String hora_ingreso;
 	
-	private String horaSalida;
+	private String hora_salida;
 	
 	public LectorCarnet()
 	{
-		this.idLector = 0;
-		this.idEspacio = 0;
-		this.idVisitante = 0;
-		this.horaIngreso = "";
-		this.horaSalida = "";	
+		this.id_lector = 0;
+		this.id_espacio = 0;
+		this.id_visitante = 0;
+		this.hora_ingreso = "";
+		this.hora_salida = "";
 	}
 	
 	public LectorCarnet(long lector, long espacio, long visitante, String ingreso, String salida)
 	{
-		this.idLector = lector;
-		this.idEspacio = espacio;
-		this.idVisitante = visitante;
-		this.horaIngreso = ingreso;
-		this.horaSalida = salida;	
+		this.id_lector = lector;
+		this.id_espacio = espacio;
+		this.id_visitante = visitante;
+		this.hora_ingreso = ingreso;
+		this.hora_salida = salida;
 	}
 
-	public long getIdLector() {
-		return idLector;
+	public long getId_lector() {
+		return id_lector;
 	}
 
-	public void setIdLector(long idLector) {
-		this.idLector = idLector;
+	public void setId_lector(long id_lector) {
+		this.id_lector = id_lector;
 	}
 
-	public long getIdEspacio() {
-		return idEspacio;
+	public long getId_espacio() {
+		return id_espacio;
 	}
 
-	public void setIdEspacio(long idEspacio) {
-		this.idEspacio = idEspacio;
+	public void setId_espacio(long id_espacio) {
+		this.id_espacio = id_espacio;
 	}
 
-	public long getIdVisitante() {
-		return idVisitante;
+	public long getId_visitante() {
+		return id_visitante;
 	}
 
-	public void setIdVisitante(long idVisitante) {
-		this.idVisitante = idVisitante;
+	public void setId_visitante(long id_visitante) {
+		this.id_visitante = id_visitante;
 	}
 
-	public String getHoraIngreso() {
-		return horaIngreso;
+	public String getHora_ingreso() {
+		return hora_ingreso;
 	}
 
-	public void setHoraIngreso(String horaIngreso) {
-		this.horaIngreso = horaIngreso;
+	public void setHora_ingreso(String hora_ingreso) {
+		this.hora_ingreso = hora_ingreso;
 	}
 
-	public String getHoraSalida() {
-		return horaSalida;
+	public String getHora_salida() {
+		return hora_salida;
 	}
 
-	public void setHoraSalida(String horaSalida) {
-		this.horaSalida = horaSalida;
+	public void setHora_salida(String hora_salida) {
+		this.hora_salida = hora_salida;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "LectorCarnet{" +
+				"idLector=" + id_lector +
+				", idEspacio=" + id_espacio +
+				", idVisitante=" + id_visitante +
+				", horaIngreso='" + hora_ingreso + '\'' +
+				", horaSalida='" + hora_salida + '\'' +
+				'}';
+	}
 }

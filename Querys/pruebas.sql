@@ -1,3 +1,0 @@
-FOR i in 1..4 LOOP
-
-END LOOP

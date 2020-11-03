@@ -1,14 +1,14 @@
 package uniandes.isis2304.parranderos.negocio;
 
-public class Espacio {
+public class Espacio implements VOEspacio{
 	
 	private long id;
 	
-	private int capacidadOriginal;
+	private int capacidad_original;
 	
-	private String horaApertura;
+	private String hora_apertura;
 	
-	private String horaCierre;
+	private String hora_cierre;
 	
 	private String descripcion;
 	
@@ -17,9 +17,9 @@ public class Espacio {
 	public Espacio()
 	{
 		this.id = 0;
-		this.capacidadOriginal = 0;
-		this.horaApertura = "";
-		this.horaCierre = "";
+		this.capacidad_original = 0;
+		this.hora_apertura = "";
+		this.hora_cierre = "";
 		this.descripcion = "";
 		
 	}
@@ -27,9 +27,9 @@ public class Espacio {
 	public Espacio (long id, int capacidad, String apertura, String cierre, String descripcion)
 	{
 		this.id = id;
-		this.capacidadOriginal = capacidad;
-		this.horaApertura = apertura;
-		this.horaCierre = cierre;
+		this.capacidad_original = capacidad;
+		this.hora_apertura = apertura;
+		this.hora_cierre = cierre;
 		this.descripcion = descripcion;
 	}
 
@@ -41,28 +41,28 @@ public class Espacio {
 		this.id = id;
 	}
 
-	public int getCapacidadOriginal() {
-		return capacidadOriginal;
+	public int getCapacidad_original() {
+		return capacidad_original;
 	}
 
-	public void setCapacidadOriginal(int capacidadOriginal) {
-		this.capacidadOriginal = capacidadOriginal;
+	public void setCapacidad_original(int capacidad_original) {
+		this.capacidad_original = capacidad_original;
 	}
 
-	public String getHoraApertura() {
-		return horaApertura;
+	public String getHora_apertura() {
+		return hora_apertura;
 	}
 
-	public void setHoraApertura(String horaApertura) {
-		this.horaApertura = horaApertura;
+	public void setHora_apertura(String hora_apertura) {
+		this.hora_apertura = hora_apertura;
 	}
 
-	public String getHoraCierre() {
-		return horaCierre;
+	public String getHora_cierre() {
+		return hora_cierre;
 	}
 
-	public void setHoraCierre(String horaCierre) {
-		this.horaCierre = horaCierre;
+	public void setHora_cierre(String hora_cierre) {
+		this.hora_cierre = hora_cierre;
 	}
 
 	public String getDescripcion() {
@@ -72,7 +72,15 @@ public class Espacio {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Espacio{" +
+				"id=" + id +
+				", capacidadOriginal=" + capacidad_original +
+				", horaApertura='" + hora_apertura + '\'' +
+				", horaCierre='" + hora_cierre + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				'}';
+	}
 }

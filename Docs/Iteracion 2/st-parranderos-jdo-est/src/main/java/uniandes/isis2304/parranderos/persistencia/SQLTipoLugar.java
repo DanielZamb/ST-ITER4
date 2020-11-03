@@ -16,10 +16,10 @@ public class SQLTipoLugar {
         this.pa = pa;
     }
 
-    public long adicionarTipoVisitante (PersistenceManager pm, String tipoLugar, String consAforo)
+    public long adicionarTipoVisitante (PersistenceManager pm,long id, String tipoLugar, String consAforo)
     {
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaVisitante () + "(tipo_lugar, cons_aforo) values (?, ?)");
-        q.setParameters(tipoLugar,consAforo);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaVisitante () + "(id,tipo_lugar, cons_aforo) values (?,?, ?)");
+        q.setParameters(id,tipoLugar,consAforo);
         return (long) q.executeUnique();
     }
 }

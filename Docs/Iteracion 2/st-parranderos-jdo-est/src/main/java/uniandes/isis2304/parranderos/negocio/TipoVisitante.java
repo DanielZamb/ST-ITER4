@@ -1,19 +1,28 @@
 package uniandes.isis2304.parranderos.negocio;
 
 public class TipoVisitante implements VOTipoVisitante{
+	private long id;
     private String tipo_visitante;
     private String horario;
 
     public TipoVisitante() {
+    	this.id = 0;
         this.tipo_visitante = "";
         this.horario = "";
     }
-    public TipoVisitante(String tipo_lugar, String horario) {
+    public TipoVisitante(long id,String tipo_lugar, String horario) {
+    	this.id = id;
         this.tipo_visitante = tipo_lugar;
         this.horario = horario;
     }
 
-    public String getTipo_visitante() {
+    public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getTipo_visitante() {
         return tipo_visitante;
     }
 

@@ -16,9 +16,9 @@ public class Visitante {
 	
 	private int telefono_contacto;
 	
-	private String tipo;
+	private long tipo;
 	
-	public Visitante(long id, String tipoId, String nombre, String correo, int telefono, String nomC, int telC, String tipoV )
+	public Visitante(long id, String tipoId, String nombre, String correo, int telefono, String nomC, int telC, long tipoV )
 	{
 		this.id = id;
 		this.tipo_identificacion = tipoId;
@@ -86,11 +86,11 @@ public class Visitante {
 		this.telefono_contacto = telefono_contacto;
 	}
 
-	public String getTipo() {
+	public long getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(long tipo) {
 		this.tipo = tipo;
 	}
 

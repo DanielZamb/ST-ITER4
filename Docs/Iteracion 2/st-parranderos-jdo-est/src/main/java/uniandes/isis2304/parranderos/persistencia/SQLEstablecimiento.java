@@ -19,10 +19,10 @@ public class SQLEstablecimiento {
 		this.pa = pa;
 	}
 	
-	public long adicionarEstablecimiento (PersistenceManager pm, long idEstablecimiento, double area, String nombre, long idCC  ) 
+	public long adicionarEstablecimiento (PersistenceManager pm, long idEstablecimiento, double area, String nombre, short cerrado, long idCC  ) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaEstablecimiento () + "(idE,area, nombre, idCC) values (?, ?, ?,?)");
-        q.setParameters(idEstablecimiento,area,nombre,idCC);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaEstablecimiento () + "(ID,AREA, NOMBRE,CERRADO, ID_CC) values (?, ?, ?, ?, ?)");
+        q.setParameters(idEstablecimiento,area,nombre,cerrado,idCC);
         return (long) q.executeUnique();
 	}
 	

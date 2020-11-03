@@ -19,10 +19,10 @@ public class SQLEspacio {
 		this.pa = pa;
 	}
 	
-	public long adicionarEspacio (PersistenceManager pm, long idEspacio, int capacidad, Date apertura, Date cierre, String descripcion,int numVisitantes, long idCC) 
+	public long adicionarEspacio (PersistenceManager pm, long idEspacio, int capacidad, String apertura, String cierre, String descripcion,long tipo) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaEspacio () + "(id, nombre, capacidad, apertura, cierre, desc, visitantes) values (?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(idEspacio, capacidad, apertura, cierre, descripcion, numVisitantes);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaEspacio () + "(id, capacidad_original, hora_apertura, hora_cierre, descripcion, tipo_lugar) values (?, ?, ?, ?, ?, ?)");
+        q.setParameters(idEspacio, capacidad, apertura, cierre, descripcion, tipo);
         return (long) q.executeUnique();
 	}
 	

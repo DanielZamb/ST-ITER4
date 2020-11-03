@@ -23,7 +23,7 @@ public class SQLAforoActual {
 	
 	public long adicionarAforoActual (PersistenceManager pm, int numVisitantes, String tipo, double aforoActual, long idEspacio ) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAforoActual () + "(id, nombre, capacidad, apertura, cierre, desc, visitantes) values (?, ?, ?, ?, ?, ?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAforoActual () + "(NUMERO_VISITANTES,TIPO,AFORO_ACTUAL,ID_ESPACIO) values (?, ?, ?, ?)");
         q.setParameters(numVisitantes, tipo, aforoActual, idEspacio);
         return (long) q.executeUnique();
 	}

@@ -22,7 +22,7 @@ public class SQLAforoMaximo {
 	
 	public long adicionarAforoActual (PersistenceManager pm, String tipo, double aforoMaximo, long idEspacio ) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAforoMaximo () + "(id, nombre, capacidad, apertura, cierre, desc, visitantes) values (?, ?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAforoMaximo () + "(TIPO,AFORO_MAXIMO,ID_ESPACIO) values (?, ?, ?)");
         q.setParameters(tipo, aforoMaximo, idEspacio);
         return (long) q.executeUnique();
 	}

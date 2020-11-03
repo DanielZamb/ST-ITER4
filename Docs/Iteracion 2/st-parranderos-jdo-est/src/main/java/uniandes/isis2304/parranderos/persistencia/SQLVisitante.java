@@ -19,10 +19,10 @@ public class SQLVisitante {
 		this.pa = pa;
 	}
 	
-	public long adicionarVisitante (PersistenceManager pm, long numIdentificacion, String tipoIdentificacion, String nombre, String correo, int telefono, String nombreContacto, int telefonoContacto, String ciudad, long tipo) 
+	public long adicionarVisitante (PersistenceManager pm, long numIdentificacion, String tipoIdentificacion, String nombre, String correo, int telefono, String nombreContacto, int telefonoContacto, long tipo) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaVisitante () + "(id, tipoId, nombre, correo, telefono, nombreCont, telefonoCont, ciudad, tipo) values (?, ?, ?, ?)");
-        q.setParameters(numIdentificacion,tipoIdentificacion, nombre, correo, telefono, nombreContacto, telefonoContacto,ciudad, tipo);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaVisitante () + "(id, tipo_identificacion, nombre, correo, telefono, nombre_contacto, telefono_contacto, tipo) values (?,?,?,?, ?, ?, ?,?)");
+        q.setParameters(numIdentificacion,tipoIdentificacion, nombre, correo, telefono, nombreContacto, telefonoContacto, tipo);
         return (long) q.executeUnique();
 	}
 	

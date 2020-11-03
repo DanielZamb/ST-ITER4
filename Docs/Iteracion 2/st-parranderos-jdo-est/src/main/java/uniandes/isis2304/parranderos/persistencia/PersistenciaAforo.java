@@ -197,11 +197,6 @@ public class PersistenciaAforo {
 	}
 	
 	
-	public List<Visitante> darVisitantesAtendidos(double inicio, double salida)
-	{
-		
-		
-	}
 	
 	
 

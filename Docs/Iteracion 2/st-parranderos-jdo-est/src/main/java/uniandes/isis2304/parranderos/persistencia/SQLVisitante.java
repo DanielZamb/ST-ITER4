@@ -40,7 +40,7 @@ public class SQLVisitante {
         return (long) q.executeUnique();            
 	}
 	
-	public Visitante darBebedorPorId (PersistenceManager pm, long idVisitante) 
+	public Visitante darVisitantePorId (PersistenceManager pm, long idVisitante) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaVisitante () + " WHERE id = ?");
 		q.setResultClass(Visitante.class);

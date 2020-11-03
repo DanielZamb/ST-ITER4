@@ -22,10 +22,10 @@ public class SQLLectorCarnet {
 		this.pa = pa;
 	}
 	
-	public long adicionarLector (PersistenceManager pm, long idLector, long idEspacio, long idVisitante, String horaIngreso, String horaSalida  ) 
+	public long adicionarLector (PersistenceManager pm, long idLector, long idEspacio)
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaLectorCarnet () + "(idL, idE, idV, ingreso, salida) values (?, ?, ?)");
-        q.setParameters(idLector,idEspacio,idVisitante,horaIngreso,horaSalida);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaLectorCarnet () + "(id, id_espacio) values (?, ?)");
+        q.setParameters(idLector,idEspacio);
         return (long) q.executeUnique();
 	}
 	
@@ -50,23 +50,4 @@ public class SQLLectorCarnet {
 		q.setResultClass(LectorCarnet.class);
 		return (List<LectorCarnet>) q.executeList();
 	}
-	
-	public List<Establecimiento> darEstablecimientosVisitados(PersistenceManager pm, long idVisitante)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM"+  pa.darTablaLectorCarnet ()+ "WHERE idvisitante = ?");
-		q.setResultClass(Establecimiento.class);
-		q.setParameters(idVisitante);
-		return (List<Establecimiento>) q.executeList();
-	}
-	
-	public List<Visitante> darEstablecimientosVisitadosHoras(PersistenceManager pm, double inicio, double salida)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM"+  pa.darTablaLectorCarnet ()+ "WHERE HORA_INGRESO = ?"+" AND HORA_SALIDA = ?");
-		q.setResultClass(Establecimiento.class);
-		q.setParameters(inicio,salida);
-		return (List<Visitante>) q.executeList();
-	}
-	
-	
-
 }

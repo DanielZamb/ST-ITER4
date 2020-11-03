@@ -11,9 +11,11 @@ public class Espacio implements VOEspacio{
 	private String hora_cierre;
 	
 	private String descripcion;
-	
-	
-	
+
+	private Short cerrado;
+
+	private long tipo_lugar;
+
 	public Espacio()
 	{
 		this.id = 0;
@@ -21,16 +23,19 @@ public class Espacio implements VOEspacio{
 		this.hora_apertura = "";
 		this.hora_cierre = "";
 		this.descripcion = "";
-		
+		this.cerrado = 0;
+		this.tipo_lugar = 0;
 	}
 	
-	public Espacio (long id, int capacidad, String apertura, String cierre, String descripcion)
+	public Espacio (long id, int capacidad, String apertura, String cierre, String descripcion,Short cerrado,long tipo_lugar)
 	{
 		this.id = id;
 		this.capacidad_original = capacidad;
 		this.hora_apertura = apertura;
 		this.hora_cierre = cierre;
 		this.descripcion = descripcion;
+		this.cerrado = cerrado;
+		this.tipo_lugar = tipo_lugar;
 	}
 
 	public long getId() {
@@ -39,6 +44,22 @@ public class Espacio implements VOEspacio{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getTipo_lugar() {
+		return tipo_lugar;
+	}
+
+	public void setTipo_lugar(long tipo_lugar) {
+		this.tipo_lugar = tipo_lugar;
+	}
+
+	public Short getCerrado() {
+		return cerrado;
+	}
+
+	public void setCerrado(Short cerrado) {
+		this.cerrado = cerrado;
 	}
 
 	public int getCapacidad_original() {
@@ -77,10 +98,11 @@ public class Espacio implements VOEspacio{
 	public String toString() {
 		return "Espacio{" +
 				"id=" + id +
-				", capacidadOriginal=" + capacidad_original +
-				", horaApertura='" + hora_apertura + '\'' +
-				", horaCierre='" + hora_cierre + '\'' +
+				", capacidad_original=" + capacidad_original +
+				", hora_apertura='" + hora_apertura + '\'' +
+				", hora_cierre='" + hora_cierre + '\'' +
 				", descripcion='" + descripcion + '\'' +
+				", cerrado=" + cerrado +
 				'}';
 	}
 }

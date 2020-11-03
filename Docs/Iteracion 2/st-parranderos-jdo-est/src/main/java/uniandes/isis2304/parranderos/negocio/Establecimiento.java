@@ -1,6 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
-public class Establecimiento implements VOEstablecimiento{
+public class Establecimiento extends Espacio implements VOEstablecimiento {
     private long id;
     private long id_cc;
     private double area;

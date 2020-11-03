@@ -5,18 +5,20 @@ public class Establecimiento extends Espacio implements VOEstablecimiento {
     private long id_cc;
     private double area;
     private String nombre;
-
+    private Short cerrado;
     public Establecimiento(){
         this.id = 0;
         this.id_cc = 0;
         this.area = 0.0;
         this.nombre = "";
+        this.cerrado = 0;
     }
-    public Establecimiento(long id, long id_cc, double area, String nombre) {
+    public Establecimiento(long id, long id_cc, double area, String nombre, Short cerrado) {
         this.id = id;
         this.id_cc = id_cc;
         this.area = area;
         this.nombre = nombre;
+        this.cerrado = cerrado;
     }
 
     public long getId() {
@@ -25,6 +27,14 @@ public class Establecimiento extends Espacio implements VOEstablecimiento {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Short getCerrado() {
+        return cerrado;
+    }
+
+    public void setCerrado(Short cerrado) {
+        this.cerrado = cerrado;
     }
 
     public long getId_cc() {
@@ -58,6 +68,7 @@ public class Establecimiento extends Espacio implements VOEstablecimiento {
                 ", id_cc=" + id_cc +
                 ", area=" + area +
                 ", nombre='" + nombre + '\'' +
+                ", cerrado=" + cerrado +
                 '}';
     }
 }

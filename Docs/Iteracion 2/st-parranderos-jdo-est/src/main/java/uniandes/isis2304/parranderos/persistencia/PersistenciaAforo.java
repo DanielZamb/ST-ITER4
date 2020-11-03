@@ -3,9 +3,7 @@ package uniandes.isis2304.parranderos.persistencia;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.jdo.JDODataStoreException;
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.*;
 
 import org.apache.log4j.Logger;
 
@@ -187,6 +185,34 @@ public class PersistenciaAforo {
 			return je.getNestedExceptions() [0].getMessage();
 		}
 		return resp;
+	}
+	public long [] limpiarAforo ()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long [] resp = sqlUtil.limpiarAforo (pm);
+			tx.commit ();
+			log.info ("Borrada la base de datos");
+			return resp;
+		}
+		catch (Exception e)
+		{
+//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return new long[] {-1, -1, -1, -1, -1, -1, -1};
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+
 	}
 	
 	

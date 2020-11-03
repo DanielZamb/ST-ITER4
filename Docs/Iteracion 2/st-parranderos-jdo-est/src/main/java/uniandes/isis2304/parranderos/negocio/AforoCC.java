@@ -16,4 +16,11 @@ public class AforoCC {
     public void cerrarUnidadPersistencia () {
         pp.cerrarUnidadPersistencia ();
     }
+    public long [] limpiarAforo ()
+    {
+        log.info ("Limpiando la BD de Aforo");
+        long [] borrrados = pp.limpiarAforo();
+        log.info ("Limpiando la BD de Parranderos: Listo!");
+        return borrrados;
+    }
 }

@@ -32,6 +32,8 @@ public class PersistenciaAforo {
 	private SQLAforoMaximo sqlAforoMaximo;
 	
 	private SQLLectorCarnet sqlLectorCarnet;
+
+	private SQLVisitas sqlVisitas;
 	
 	private SQLCentroComercial sqlCentroComercial;
 	
@@ -59,6 +61,7 @@ public class PersistenciaAforo {
 		tablas.add("VISITANTE");
 		tablas.add("TIPO_VISITANTE");
 		tablas.add("TIPO_LUGAR");
+		tablas.add("VISITAS");
 		
 	}
 	
@@ -120,6 +123,7 @@ public class PersistenciaAforo {
 		sqlVisitante = new SQLVisitante(this);
 		sqlTipoVisitante = new SQLTipoVisitante(this);
 		sqlTipoLugar = new SQLTipoLugar(this);
+		sqlVisitas = new SQLVisitas(this);
 	}
 	
 	public String darSeqAforo() {
@@ -168,6 +172,11 @@ public class PersistenciaAforo {
 	public String darTablaTipoLugar()
 	{
 		return tablas.get (9);
+	}
+
+	public String darTablaVisitas()
+	{
+		return tablas.get (10);
 	}
 	
 	

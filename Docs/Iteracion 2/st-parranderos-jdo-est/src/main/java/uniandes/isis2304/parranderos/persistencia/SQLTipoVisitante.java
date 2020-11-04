@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.Espacio;
+import uniandes.isis2304.parranderos.negocio.TipoLugar;
 import uniandes.isis2304.parranderos.negocio.TipoVisitante;
 public class SQLTipoVisitante {
     private final static String SQL = PersistenciaAforo.SQL;
@@ -31,11 +32,22 @@ public class SQLTipoVisitante {
         return (long) q.executeUnique();
 	}
     
-    public Espacio darTipoVisitantePorId (PersistenceManager pm, long idEspacio) 
+    public Espacio darTipoVisitantePorId (PersistenceManager pm, long idTipoV)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaEspacio () + " WHERE id = ?");
 		q.setResultClass(Espacio.class);
-		q.setParameters(idEspacio);
+		q.setParameters(idTipoV);
 		return (Espacio) q.executeUnique();
 	}
+    public List<TipoVisitante> darTodosLosTiposVisitante (PersistenceManager pm){
+        Query q = pm.newQuery(SQL, "SELECT * FROM "+pa.darTablaVisitante());
+        q.setResultClass(TipoVisitante.class);
+        return (List<TipoVisitante>) q.executeUnique();
+    }
+    public TipoVisitante updateTipoLugar(PersistenceManager pm, long id, TipoVisitante tipoVisitante){
+        Query q = pm.newQuery(SQL, "UPDATE "+pa.darTablaVisitante()+" SET tipo_visitante = ?, horario = ? WHERE id = ?");
+        q.setResultClass(TipoLugar.class);
+        q.setParameters(tipoVisitante.getTipo_visitante(),tipoVisitante.getHorario(),id);
+        return (TipoVisitante) q.executeUnique();
+    }
 }

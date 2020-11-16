@@ -1,6 +1,3 @@
 en total son 315 espacios, de los cuales 15 son centros comerciales, 200 son establecimientos, 
-los otros 100 son espacios de otro tipo. Hay un total de 1000 visitantes.
-Hay un total de 300 lectores de carnet. En la tabla lectores hay 1000 registros de lecturas. 
+los otros 100 son espacios de otro tipo. Hay un total de 550 visitantes,315 lectores y 1000 registros de visistas a un espacio. 
 
-Como fue generado aleatoriamiento hay algunos valores donde no se encuentran PK y relaciones entre
-tablas.

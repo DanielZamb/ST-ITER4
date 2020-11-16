@@ -40,6 +40,14 @@ public class SQLLectorCarnet {
 		return (LectorCarnet) q.executeUnique();
 	}
 	
+	public LectorCarnet darLectorPorIdEspacio (PersistenceManager pm, long idLector) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaLectorCarnet () + " WHERE id_espacio = ?");
+		q.setResultClass(LectorCarnet.class);
+		q.setParameters(idLector);
+		return (LectorCarnet) q.executeUnique();
+	}
+	
 	public List<LectorCarnet> darLectores (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaLectorCarnet ());

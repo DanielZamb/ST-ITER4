@@ -11,6 +11,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.parranderos.negocio.LectorCarnet;
+import uniandes.isis2304.parranderos.negocio.Visitas;
+
 public class PersistenciaAforo {
 
 	private static Logger log = Logger.getLogger(PersistenciaAforo.class.getName());
@@ -40,6 +43,8 @@ public class PersistenciaAforo {
 	private SQLVisitante sqlVisitante;
 
 	private SQLTipoVisitante sqlTipoVisitante;
+	
+	private SQLVisitas sqlVisitas;
 
 	private SQLTipoLugar sqlTipoLugar;
 	
@@ -57,6 +62,7 @@ public class PersistenciaAforo {
 		tablas.add("CENTROCOMERCIAL");
 		tablas.add("ESTABLECIMIENTO");
 		tablas.add("VISITANTE");
+		tablas.add("VISITAS");
 		tablas.add("TIPO_VISITANTE");
 		tablas.add("TIPO_LUGAR");
 		
@@ -118,6 +124,7 @@ public class PersistenciaAforo {
 		sqlCentroComercial = new SQLCentroComercial(this);
 		sqlEstablecimiento = new SQLEstablecimiento(this);	
 		sqlVisitante = new SQLVisitante(this);
+		sqlVisitas = new SQLVisitas(this);
 		sqlTipoVisitante = new SQLTipoVisitante(this);
 		sqlTipoLugar = new SQLTipoLugar(this);
 	}
@@ -159,15 +166,20 @@ public class PersistenciaAforo {
 	{
 		return tablas.get (7);
 	}
+	
+	public String darTablaVisitas()
+	{
+		return tablas.get(8);
+	}
 
 	public String darTablaTipoVisitante()
 	{
-		return tablas.get (8);
+		return tablas.get (9);
 	}
 
 	public String darTablaTipoLugar()
 	{
-		return tablas.get (9);
+		return tablas.get (10);
 	}
 	
 	
@@ -215,6 +227,23 @@ public class PersistenciaAforo {
 			pm.close();
 		}
 
+	}
+	
+	public Visitas visitantesAtendidosPorEstablecimiento(long idEstablecimiento, String ingreso, String Salida)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			
+			LectorCarnet buscado = sqlLectorCarnet.darLectorPorIdEspacio(pm, idEstablecimiento);
+			Visitas resp = sqlVisitas.darVisitasPorIdLector(pm, buscado.getId_lector());
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 	
 	

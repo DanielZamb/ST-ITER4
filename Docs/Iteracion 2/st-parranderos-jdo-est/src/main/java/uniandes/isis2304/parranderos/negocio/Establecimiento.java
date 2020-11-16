@@ -6,6 +6,7 @@ public class Establecimiento extends Espacio implements VOEstablecimiento {
     private double area;
     private String nombre;
     private Short cerrado;
+    
     public Establecimiento(){
         this.id = 0;
         this.id_cc = 0;
@@ -13,6 +14,7 @@ public class Establecimiento extends Espacio implements VOEstablecimiento {
         this.nombre = "";
         this.cerrado = 0;
     }
+    
     public Establecimiento(long id, long id_cc, double area, String nombre, Short cerrado) {
         this.id = id;
         this.id_cc = id_cc;

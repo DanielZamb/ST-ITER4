@@ -1,6 +1,8 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -234,38 +236,6 @@ public class PersistenciaAforo {
 		}
 
 	}
-	
-	public List<Visitante> visitantesAtendidosPorEstablecimiento(long idEstablecimiento, String ingreso, String salida)
-	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
-		List<Visitante> visitantes= new ArrayList();
-		
-		try
-		{
-			tx.begin();
-			
-			long buscado = sqlLectorCarnet.darIdLectorPorIdEspacio(pm, idEstablecimiento);
-			List<Long> resp = sqlVisitas.darVisitasRangoTiempo(pm, buscado, ingreso, salida);
-			for (Long e : resp)
-			{
-				visitantes.add(sqlVisitante.darVisitantePorId(pm, e));
-			}
-			
-			
-		}
-		catch (Exception e)
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
-		
-		return visitantes;	
-	}
-	
 	public double mostrarIndiceAforoCC(long idEspacio)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -292,10 +262,164 @@ public class PersistenciaAforo {
 		
 		return indice;
 	}
-	
-	
-	
-	
+	//--------------------------------------------------//
+	//----- CONSULTAS ITERACION 3 ----------------------//
+	//--------------------------------------------------//
+	public List<Visitante> visitantesAtendidosPorEstablecimiento(long idEstablecimiento, String inStart, String inEnd)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		List<Visitante> visitantes= new ArrayList();
 
-	
+		try
+		{
+			tx.begin();
+
+			long buscado = sqlLectorCarnet.darIdLectorPorIdEspacio(pm, idEstablecimiento);
+			List<Long> resp = sqlVisitas.darIdVisitanteVisitasRangoTiempoLectorCarnet(pm, buscado, inStart, inEnd);
+			for (Long e : resp)
+			{
+				visitantes.add(sqlVisitante.darVisitantePorId(pm, e));
+			}
+
+
+		}
+		catch (Exception e)
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+			e.printStackTrace();
+		}
+
+		return visitantes;
+	}
+	// formato DD/MM/HHHH HH24:MM:SS
+	public List<Visitante> visitantesQueEstuvieronEnElMismoLugarQue (Long idVisitante, String inEnd){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Visitante> visitantes = new ArrayList();
+		try{
+			tx.begin();
+			String[] fechaHora = inEnd.split(" ");
+			String[] fecha = fechaHora[0].split("/");
+			Calendar c = Calendar.getInstance();
+			c.set(Integer.parseInt(fecha[2]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[0]));
+			c.add(Calendar.DATE,-10);
+			String inStart = c.get(Calendar.DATE) + "/" + c.get(Calendar.MONTH)+ "/" + c.get(Calendar.YEAR) +" "+ fechaHora[1];
+			List<Visitas> list = sqlVisitas.darVisitasRangoTiempoIdVisitante(pm,idVisitante,inStart,inEnd);
+			List<Long> ids = new ArrayList<>();
+			for (Visitas v: list) {
+				ids.addAll(sqlVisitas.darIdVisitanteVisitasRangoTiempoLectorCarnet(pm,v.getId_lector_carnet(),v.getHora_ingreso(),v.getHora_salida()));
+			}
+			for (Long idV: ids){
+				visitantes.add(sqlVisitante.darVisitantePorId(pm,idV));
+			}
+		}catch(Exception e){
+			if (tx.isActive())
+				tx.rollback();
+			pm.close();
+			e.printStackTrace();
+		}
+		return visitantes;
+	}
+
+	public List<Visitante> ClientesFrecuentesEstablecimiento(Long idEstablecimiento){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Visitante> visitantes = new ArrayList();
+		try{
+			tx.begin();
+			List<Visitas> visitasList = sqlVisitas.darVisitasClientesEsablecimientoPorIdEspacio(pm,idEstablecimiento);
+			List<Long> visitantesId = new ArrayList<>();
+			List<Long> lectoresId = new ArrayList<>();
+			Long idRef = visitasList.get(0).getId_visitante();
+			Long lector = visitasList.get(0).getId_lector_carnet();
+			int cont = 0;
+			for(Visitas v : visitasList) {
+				if (idRef == v.getId_visitante()) cont++;
+				else {
+					if (cont >= 3) {
+						visitantesId.add(idRef);
+						lectoresId.add(lector);
+					}
+					else cont = 0;
+					idRef = v.getId_visitante();
+					lector = v.getId_lector_carnet();
+				}
+			}
+			for (int i=0;i<visitantesId.size();i++) {
+				List<Visitas> visitasAlMismoLocal = sqlVisitas.darVisitaPorIdVisitanteIdLector(pm,visitantesId.get(i),lectoresId.get(i));
+				String fechaHora[] = visitasAlMismoLocal.get(0).getHora_ingreso().split(" ");
+				String mes = fechaHora[0].split("/")[1];
+				int cont2 = 0;
+				for (Visitas v : visitasAlMismoLocal ){
+					if (mes == v.getHora_ingreso().split(" ")[0].split("/")[1]) cont++;
+					else {
+						if (cont>=3){
+							visitantes.add(sqlVisitante.darVisitantePorId(pm,v.getId_visitante()));
+						}
+						else cont = 0;
+						mes = v.getHora_ingreso().split(" ")[0].split("/")[1];
+					}
+				}
+			}
+		}catch (Exception e){
+			if (tx.isActive())
+				tx.rollback();
+			pm.close();
+			e.printStackTrace();
+		}
+		return visitantes;
+	}
+	public List<Long> espaciosVisitadosPorPositivo(String factual)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+
+		String[] fechaHora = factual.split(" ");
+		String[] fecha = fechaHora[0].split("/");
+		Calendar c = Calendar.getInstance();
+		c.set(Integer.parseInt(fecha[2]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[0]));
+		c.add(Calendar.DATE,-2);
+		String inStart = c.get(Calendar.DATE) + "/" + c.get(Calendar.MONTH)+ "/" + c.get(Calendar.YEAR) +" "+ fechaHora[1];
+
+		String sql1 = "SELECT a_lector_carnet.id_espacio FROM"+darTablaVisitante()+","+darTablaVisitas()+","+darTablaLectorCarnet();
+		String sql2 = sql1+"WHERE a_visitante.positivo = 1 AND a_visitante.id = a_visitas.id_visitante AND a_visitas.id_lector_carnet = a_lector_carnet.id AND hora_ingreso AND (hora_ingreso > TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND (hora_salida < TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')";
+
+		Query q = pm.newQuery(SQL, sql2);
+		q.setResultClass(Long.class);
+		q.setParameters(inStart,factual);
+
+		return (List<Long>) q.executeList();
+	}
+
+	public void cambiarEspacioARojo(String fecha_actual)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		String color = "Rojo";
+		for(Long e: espaciosVisitadosPorPositivo(fecha_actual))
+		{
+			sqlEspacio.cambiarColor(pm, e, color);
+		}
+	}
+
+	public void deshabilitarEstablecimiento(String tipoEstablecimiento){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		List<Long> list = sqlEstablecimiento.darEstablecimientoEspacioPorIdTipo(pm,tipoEstablecimiento);
+		for(Long e: list){
+			sqlEstablecimiento.cerrarEstablecimiento(pm,e,tipoEstablecimiento);
+			sqlEspacio.cambiarColor(pm,e,"Rojo");
+		}
+	}
+
+	public void rehabilitarEstablecimiento(String tipoEstablecimiento){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		List<Long> list = sqlEstablecimiento.darEstablecimientoEspacioPorIdTipo(pm,tipoEstablecimiento);
+		for(Long e: list){
+			sqlEstablecimiento.rehabilitarEstablecimiento(pm,e,tipoEstablecimiento);
+			sqlEspacio.cambiarColor(pm,e,"Verde");
+		}
+	}
 }

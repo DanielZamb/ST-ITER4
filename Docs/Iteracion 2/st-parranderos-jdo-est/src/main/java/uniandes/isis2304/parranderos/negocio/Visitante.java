@@ -1,24 +1,30 @@
 package uniandes.isis2304.parranderos.negocio;
 
 public class Visitante {
-	
+
 	private long id;
-	
+
 	private String tipo_identificacion;
-	
+
 	private String nombre;
-	
+
 	private String correo;
-	
+
 	private int telefono;
-	
+
 	private String nombre_contacto;
-	
+
 	private int telefono_contacto;
-	
+
+	private char positivo;
+
+	private String color;
+
 	private long tipo;
-	
-	public Visitante(long id, String tipoId, String nombre, String correo, int telefono, String nomC, int telC, long tipoV )
+
+
+
+	public Visitante(long id, String tipoId, String nombre, String correo, int telefono, String nomC, int telC,char positivo, String color, long tipoV)
 	{
 		this.id = id;
 		this.tipo_identificacion = tipoId;
@@ -27,7 +33,26 @@ public class Visitante {
 		this.telefono = telefono;
 		this.nombre_contacto = nomC;
 		this.telefono_contacto = telC;
+		this.positivo = positivo;
+		this.color = color;
 		this.tipo = tipoV;
+
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public char getPositivo() {
+		return positivo;
+	}
+
+	public void setPositivo(char positivo) {
+		this.positivo = positivo;
 	}
 
 	public long getId() {

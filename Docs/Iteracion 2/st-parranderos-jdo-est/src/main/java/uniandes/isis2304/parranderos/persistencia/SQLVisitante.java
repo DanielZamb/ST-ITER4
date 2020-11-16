@@ -62,7 +62,25 @@ public class SQLVisitante {
 		q.setResultClass(Visitante.class);
 		return (List<Visitante>) q.executeList();
 	}
-	
-	
+
+	public void cambiarAPositivo(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL,"UPDATE"+pa.darTablaVisitante()+"SET positivo = 1 WHERE id_visitante = ?");
+		q.setParameters(id);
+	}
+
+	public List<Visitante> consultarPositivos(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaVisitante () + " WHERE positivo = 1");
+		q.setResultClass(Visitante.class);
+		return (List<Visitante>) q.executeList();
+	}
+
+	public List<Long> consultarIdPositivos(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaVisitante () + " WHERE positivo = 1");
+		q.setResultClass(Long.class);
+		return (List<Long>) q.executeList();
+	}
 	
 }

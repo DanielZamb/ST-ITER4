@@ -40,6 +40,13 @@ public class SQLEstablecimiento {
 		q.setParameters(idEstablecimiento);
 		return (Establecimiento) q.executeUnique();
 	}
+	public List<Long> darEstablecimientoEspacioPorIdTipo (PersistenceManager pm, String tipoEstablecimiento){
+		String sql = "Select "+pa.darTablaEspacio()+".id from "+pa.darTablaEstablecimiento()+","+pa.darTablaEspacio()+" where "+pa.darTablaEspacio()+".id = "+pa.darTablaEstablecimiento()+".id and tipo_establecimiento = ?;";
+		Query q = pm.newQuery(SQL,sql);
+		q.setResultClass(Long.class);
+		q.setParameters(tipoEstablecimiento);
+		return (List<Long>) q.executeUnique();
+	}
 	
 	public List<Establecimiento> darEstablecimientos (PersistenceManager pm)
 	{
@@ -50,9 +57,18 @@ public class SQLEstablecimiento {
 	
 	public void cerrarEstablecimiento(PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "UPDATE" + pa.darTablaEstablecimiento() +"SET cerrado = 1 WHERE id = ?");
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaEstablecimiento() +" SET cerrado = '1' WHERE id = ?");
 		q.setParameters(id);
 	}
-	
+	public void cerrarEstablecimiento(PersistenceManager pm, long id, String tipoEstablecimiento)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaEstablecimiento() +" SET cerrado = '1' WHERE id = ? and tipo_establecimiento = ?");
+		q.setParameters(id,tipoEstablecimiento);
+	}
+	public void rehabilitarEstablecimiento(PersistenceManager pm, long id, String tipo)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaEstablecimiento () +"SET cerrado = '0' WHERE tipo_establecimiento = ? and id = ?");
+		q.setParameters(id,tipo);
+	}
 
 }

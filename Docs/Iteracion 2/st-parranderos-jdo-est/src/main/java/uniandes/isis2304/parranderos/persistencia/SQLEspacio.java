@@ -47,6 +47,9 @@ public class SQLEspacio {
 		q.setResultClass(Espacio.class);
 		return (List<Espacio>) q.executeList();
 	}
-	
-	
+	public void cambiarColor(PersistenceManager pm, long id, String color ) {
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaEspacio() + " SET color = ? WHERE id = ?");
+		q.setParameters(color, id);
+	}
+
 }

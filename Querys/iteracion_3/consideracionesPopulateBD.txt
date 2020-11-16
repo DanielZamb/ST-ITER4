@@ -1,0 +1,3 @@
+en total son 315 espacios, de los cuales 15 son centros comerciales, 200 son establecimientos, 
+los otros 100 son espacios de otro tipo. Hay un total de 550 visitantes,315 lectores y 1000 registros de visistas a un espacio. 
+

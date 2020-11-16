@@ -1,0 +1,2 @@
+insert into A_ESPACIO (id, capacidad_original, hora_apertura, hora_cierre, descripcion,color,tipo_lugar) values (1, 3114, '6:22 AM', '9:04 PM', 'Pellentesque ultrices mattis odio.','Verde', 2);
+insert into A_ESPACIO (id, capacidad_original, hora_apertura, hora_cierre, descripcion, ,color,tipo_lugar) values (2, 3942, '6:29 AM', '9:10 PM', 'Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.','Verde', 2);

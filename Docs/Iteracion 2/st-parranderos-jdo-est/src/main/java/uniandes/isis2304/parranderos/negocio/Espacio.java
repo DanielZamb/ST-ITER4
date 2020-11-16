@@ -1,16 +1,18 @@
 package uniandes.isis2304.parranderos.negocio;
 
 public class Espacio implements VOEspacio{
-	
+
 	private long id;
-	
+
 	private int capacidad_original;
-	
+
 	private String hora_apertura;
-	
+
 	private String hora_cierre;
-	
+
 	private String descripcion;
+
+	private String color;
 
 	private long tipo_lugar;
 
@@ -23,15 +25,24 @@ public class Espacio implements VOEspacio{
 		this.descripcion = "";
 		this.tipo_lugar = 0;
 	}
-	
-	public Espacio (long id, int capacidad, String apertura, String cierre, String descripcion,long tipo_lugar)
+
+	public Espacio (long id, int capacidad, String apertura, String cierre, String descripcion, String color, long tipo_lugar)
 	{
 		this.id = id;
 		this.capacidad_original = capacidad;
 		this.hora_apertura = apertura;
 		this.hora_cierre = cierre;
 		this.descripcion = descripcion;
+		this.color = color;
 		this.tipo_lugar = tipo_lugar;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public long getId() {

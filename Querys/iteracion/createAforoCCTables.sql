@@ -17,10 +17,10 @@ CREATE TABLE a_tipo_lugar
      CONSTRAINT a_tipo_lugar_pk PRIMARY KEY(id) 
   ); 
 
-ALTER TABLE a_tipo_lugar 
-ADD CONSTRAINT ck_cons_aforo 
-CHECK(cons_aforo>=0) 
-ENABLE; 
+--ALTER TABLE a_tipo_lugar 
+--ADD CONSTRAINT ck_cons_aforo 
+--CHECK(cons_aforo>=0) 
+--ENABLE; 
 
 CREATE TABLE a_espacio 
   ( 

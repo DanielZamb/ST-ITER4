@@ -41,11 +41,17 @@ public class SQLEstablecimiento {
 		return (Establecimiento) q.executeUnique();
 	}
 	
-	public List<Establecimiento> darEspacios (PersistenceManager pm)
+	public List<Establecimiento> darEstablecimientos (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaEstablecimiento ());
 		q.setResultClass(LectorCarnet.class);
 		return (List<Establecimiento>) q.executeList();
+	}
+	
+	public void cerrarEstablecimiento(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE" + pa.darTablaEstablecimiento() +"SET cerrado = 1 WHERE id = ?");
+		q.setParameters(id);
 	}
 	
 

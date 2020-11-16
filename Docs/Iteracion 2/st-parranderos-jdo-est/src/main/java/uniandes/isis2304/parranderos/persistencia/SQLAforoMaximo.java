@@ -49,5 +49,13 @@ public class SQLAforoMaximo {
 		return (List<AforoMaximo>) q.executeList();
 	}
 	
+	public int darAforoMaximo(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "SELECT aforo_maximo FROM " + pa.darTablaAforoMaximo() +"WHERE id_espacio = ?");
+		q.setResultClass(int.class);
+		q.setParameters(id);
+		return (int)q.executeUnique();
+	}
+	
 
 }

@@ -1,5 +1,6 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.LectorCarnet;
+import uniandes.isis2304.parranderos.negocio.Visitante;
 import uniandes.isis2304.parranderos.negocio.Visitas;
 
 public class PersistenciaAforo {
@@ -36,7 +38,6 @@ public class PersistenciaAforo {
 	
 	private SQLLectorCarnet sqlLectorCarnet;
 
-	private SQLVisitas sqlVisitas;
 	
 	private SQLCentroComercial sqlCentroComercial;
 	
@@ -64,11 +65,10 @@ public class PersistenciaAforo {
 		tablas.add("CENTROCOMERCIAL");
 		tablas.add("ESTABLECIMIENTO");
 		tablas.add("VISITANTE");
-		tablas.add("VISITAS");
 		tablas.add("TIPO_VISITANTE");
-		tablas.add("TIPO_LUGAR");
 		tablas.add("VISITAS");
-		
+		tablas.add("TIPO_LUGAR");
+			
 	}
 	
 	private PersistenciaAforo (JsonObject tableConfig)
@@ -127,10 +127,10 @@ public class PersistenciaAforo {
 		sqlCentroComercial = new SQLCentroComercial(this);
 		sqlEstablecimiento = new SQLEstablecimiento(this);	
 		sqlVisitante = new SQLVisitante(this);
-		sqlVisitas = new SQLVisitas(this);
 		sqlTipoVisitante = new SQLTipoVisitante(this);
-		sqlTipoLugar = new SQLTipoLugar(this);
 		sqlVisitas = new SQLVisitas(this);
+		sqlTipoLugar = new SQLTipoLugar(this);
+		
 	}
 	
 	public String darSeqAforo() {
@@ -171,25 +171,22 @@ public class PersistenciaAforo {
 		return tablas.get (7);
 	}
 	
-	public String darTablaVisitas()
-	{
-		return tablas.get(8);
-	}
-
 	public String darTablaTipoVisitante()
 	{
-		return tablas.get (9);
+		return tablas.get (8);
 	}
-
+	
+	public String darTablaVisitas()
+	{
+		return tablas.get(9);
+	}
+	
 	public String darTablaTipoLugar()
 	{
 		return tablas.get (10);
 	}
 
-	public String darTablaVisitas()
-	{
-		return tablas.get (10);
-	}
+	
 	
 	
 	private long nextval()
@@ -238,21 +235,62 @@ public class PersistenciaAforo {
 
 	}
 	
-	public Visitas visitantesAtendidosPorEstablecimiento(long idEstablecimiento, String ingreso, String Salida)
+	public List<Visitante> visitantesAtendidosPorEstablecimiento(long idEstablecimiento, String ingreso, String salida)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
+		List<Visitante> visitantes= new ArrayList();
+		
 		try
 		{
 			tx.begin();
 			
-			LectorCarnet buscado = sqlLectorCarnet.darLectorPorIdEspacio(pm, idEstablecimiento);
-			Visitas resp = sqlVisitas.darVisitasPorIdLector(pm, buscado.getId_lector());
+			long buscado = sqlLectorCarnet.darIdLectorPorIdEspacio(pm, idEstablecimiento);
+			List<Long> resp = sqlVisitas.darVisitasRangoTiempo(pm, buscado, ingreso, salida);
+			for (Long e : resp)
+			{
+				visitantes.add(sqlVisitante.darVisitantePorId(pm, e));
+			}
+			
+			
 		}
 		catch (Exception e)
 		{
-			
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
 		}
+		
+		return visitantes;	
+	}
+	
+	public double mostrarIndiceAforoCC(long idEspacio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		double indice = 0;
+		
+		try
+		{
+			tx.begin();
+			
+			int actual = sqlAforoActual.darAforoActual(pm, idEspacio);
+			int maximo = sqlAforoMaximo.darAforoMaximo(pm, idEspacio);
+			
+			indice = (actual/maximo);		
+		}
+		catch(Exception e)
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+		return indice;
 	}
 	
 	

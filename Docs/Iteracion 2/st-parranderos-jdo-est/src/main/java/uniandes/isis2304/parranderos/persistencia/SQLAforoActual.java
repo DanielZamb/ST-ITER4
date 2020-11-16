@@ -30,14 +30,14 @@ public class SQLAforoActual {
 	
 	public long eliminarAforoPorId (PersistenceManager pm, long idAforo)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaAforoActual () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaAforoActual () + " WHERE id_espacio = ?");
         q.setParameters(idAforo);
         return (long) q.executeUnique();
 	}
 	
 	public AforoActual darAforoPorId (PersistenceManager pm, long idAforo) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAforoActual () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAforoActual () + " WHERE id_espacio = ?");
 		q.setResultClass(AforoActual.class);
 		q.setParameters(idAforo);
 		return (AforoActual) q.executeUnique();
@@ -48,6 +48,14 @@ public class SQLAforoActual {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAforoActual ());
 		q.setResultClass(Espacio.class);
 		return (List<AforoActual>) q.executeList();
+	}
+	
+	public int darAforoActual(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "SELECT aforo_actual FROM " + pa.darTablaAforoActual () +"WHERE id_espacio = ?");
+		q.setResultClass(int.class);
+		q.setParameters(id);
+		return (int)q.executeUnique();
 	}
 	
 

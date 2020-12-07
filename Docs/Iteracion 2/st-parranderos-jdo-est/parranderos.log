@@ -13,3 +13,14 @@
 10:20:42,898 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 10:20:42,918 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 10:20:42,945 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:32:25,639 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+17:32:25,955 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generando los VO de visitantes : 0 existentes
+17:36:32,800 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+17:36:33,061 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generando los VO de visitantes : 0 existentes
+17:38:05,948 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+17:41:15,422 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+17:42:28,412 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+17:56:38,246 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+18:07:21,974 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+18:08:28,349 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generado los VO de los Visitantes
+18:08:34,059 (main) INFO  [uniandes.isis2304.parranderos.negocio.AforoCC] - Generando los VO de visitantes : 550 existentes

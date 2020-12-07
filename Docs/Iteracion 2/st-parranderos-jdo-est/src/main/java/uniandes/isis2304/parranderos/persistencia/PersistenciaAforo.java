@@ -55,21 +55,21 @@ public class PersistenciaAforo {
 	
 	public PersistenciaAforo()
 	{
-		pmf = JDOHelper.getPersistenceManagerFactory("Aforo");		
+		pmf = JDOHelper.getPersistenceManagerFactory("Parranderos");
 		crearClasesSQL ();
 		
 		tablas = new LinkedList<String> ();
-		tablas.add("aforo_sequence");
-		tablas.add("ESPACIO");
-		tablas.add("AFOROACTUAL");
-		tablas.add("AFOROMAXIMO");
-		tablas.add("LECTORCARNET");
-		tablas.add("CENTROCOMERCIAL");
-		tablas.add("ESTABLECIMIENTO");
-		tablas.add("VISITANTE");
-		tablas.add("TIPO_VISITANTE");
-		tablas.add("VISITAS");
-		tablas.add("TIPO_LUGAR");
+		tablas.add("AFORO_SEQUENCE");
+		tablas.add("A_ESPACIO");
+		tablas.add("A_AFOROACTUAL");
+		tablas.add("A_AFOROMAXIMO");
+		tablas.add("A_LECTORCARNET");
+		tablas.add("A_CENTROCOMERCIAL");
+		tablas.add("A_ESTABLECIMIENTO");
+		tablas.add("A_VISITANTE");
+		tablas.add("A_TIPO_VISITANTE");
+		tablas.add("A_VISITAS");
+		tablas.add("A_TIPO_LUGAR");
 			
 	}
 	
@@ -236,6 +236,22 @@ public class PersistenciaAforo {
 		}
 
 	}
+	public List<Visitante> darVisitantes(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Visitante> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlVisitante.darVisitantes(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+
 	public double mostrarIndiceAforoCC(long idEspacio)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -251,15 +267,12 @@ public class PersistenciaAforo {
 			
 			indice = (actual/maximo);		
 		}
-		catch(Exception e)
-		{
-			if (tx.isActive())
-			{
+		catch(Exception e) {
+			if (tx.isActive()) {
 				tx.rollback();
 			}
 			pm.close();
 		}
-		
 		return indice;
 	}
 	//--------------------------------------------------//

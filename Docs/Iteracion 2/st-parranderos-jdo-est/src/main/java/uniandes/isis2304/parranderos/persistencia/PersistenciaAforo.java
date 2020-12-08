@@ -14,6 +14,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.parranderos.negocio.AforoActual;
+import uniandes.isis2304.parranderos.negocio.AforoMaximo;
+import uniandes.isis2304.parranderos.negocio.CentroComercial;
+import uniandes.isis2304.parranderos.negocio.Espacio;
+import uniandes.isis2304.parranderos.negocio.Establecimiento;
 import uniandes.isis2304.parranderos.negocio.LectorCarnet;
 import uniandes.isis2304.parranderos.negocio.Visitante;
 import uniandes.isis2304.parranderos.negocio.Visitas;
@@ -251,6 +256,104 @@ public class PersistenciaAforo {
 		}
 		return rta;
 	}
+	
+	public List<Visitas> darVisitas(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Visitas> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlVisitas.darVisitas(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	public List<LectorCarnet> darLectores(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<LectorCarnet> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlLectorCarnet.darLectores(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	public List<AforoActual> darAforoAct(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<AforoActual> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlAforoActual.darAforosActuales(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	public List<AforoMaximo> darAforoMax(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<AforoMaximo> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlAforoMaximo.darAforosMaximos(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	public List<Espacio> darEspacio(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Espacio> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlEspacio.darEspacios(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	public List<Establecimiento> darEstablecimiento(){
+		PersistenceManager pm =  pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Establecimiento> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlEstablecimiento.darEstablecimientos(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+	
+	
 
 	public double mostrarIndiceAforoCC(long idEspacio)
 	{

@@ -127,7 +127,7 @@ public class AforoCC {
         }
         return query.toString();
     }
-    public String manageCvisitasQuery(String group, String[] gParams,String sort, String[] sParams, String[] sTypes){
+    public String manageCvisitasQuery(Boolean not,String startDate, String endDate,String group, String[] gParams,String sort, String[] sParams, String[] sTypes){
         StringBuilder query = new StringBuilder("SELECT ");
         boolean groupAppend = false;
         if (group.equalsIgnoreCase("Y")){
@@ -143,6 +143,13 @@ public class AforoCC {
         }
         else if (group.equalsIgnoreCase("N")){
            query.append(" * FROM CVISITAS");
+        }
+
+        if (!not){query.append(" WHERE ").append("(").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(13)).append("> TO_TIMESTAMP(").append("\'").append(startDate).append("\'").append(",'DD/MM/YYYY HH24:MI:SSXFF'")
+             .append(")) AND (").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(14)).append("< TO_TIMESTAMP(").append("\'").append(endDate).append("\'").append(",'DD/MM/YYYY HH24:MI:SSXFF'").append("))");}
+        if (not){
+            query.append(" WHERE NOT(").append("(").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(13)).append("> TO_TIMESTAMP(").append("\'").append(startDate).append("\'").append(",'DD/MM/YYYY HH24:MI:SSXFF'")
+                    .append(")) AND (").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(14)).append("< TO_TIMESTAMP(").append("\'").append(endDate).append("\'").append(",'DD/MM/YYYY HH24:MI:SSXFF'").append(")))");
         }
         if (sort.equalsIgnoreCase("Y")){
 

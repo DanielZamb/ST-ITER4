@@ -349,6 +349,7 @@ public class PersistenciaAforo {
 		}
 		return rta;
 	}
+	//----------------------------consultas iter 4 ----------------------------------//
 	public List<Cvisitas_VIEW> darCvisitas(){
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -380,7 +381,46 @@ public class PersistenciaAforo {
 		}
 		return rta;
 	}
-	
+	public List<String> establecimientosMasVisitados1semana(String ingreso,String salida)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query q = pm.newQuery(SQL, "SELECT T2.nombre FROM (SELECT COUNT(*) AS conteo,t1.nombre FROM(SELECT A_ESTABLECIMIENTO.ID, a_establecimiento.nombre FROM A_VISITAS,A_LECTOR_CARNET,A_ESPACIO,A_ESTABLECIMIENTO WHERE (hora_ingreso > TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND (hora_salida < TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND a_visitas.id_lector_carnet = a_lector_carnet.id AND a_lector_carnet.id_espacio = a_espacio.id AND A_ESPACIO.ID = A_ESTABLECIMIENTO.ID)T1 GROUP BY T1.ID, t1.nombre order by conteo DESC)T2 WHERE ROWNUM <=5");
+
+		q.setResultClass(String.class);
+		q.setParameters(ingreso,salida);
+		return (List<String>) q.executeUnique();
+	}
+
+	public List<String> establecimientosMenosVisitados1semana(String ingreso,String salida)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query q = pm.newQuery(SQL, "SELECT T2.nombre FROM (SELECT COUNT(*) AS conteo,t1.nombre FROM(SELECT A_ESTABLECIMIENTO.ID, a_establecimiento.nombre FROM A_VISITAS,A_LECTOR_CARNET,A_ESPACIO,A_ESTABLECIMIENTO WHERE (hora_ingreso > TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND (hora_salida < TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND a_visitas.id_lector_carnet = a_lector_carnet.id AND a_lector_carnet.id_espacio = a_espacio.id AND A_ESPACIO.ID = A_ESTABLECIMIENTO.ID)T1 GROUP BY T1.ID, t1.nombre order by conteo ASC)T2 WHERE ROWNUM <=5");
+
+		q.setResultClass(String.class);
+		q.setParameters(ingreso,salida);
+		return (List<String>) q.executeUnique();
+	}
+
+	public List<String> tipoEstablecimientosMasVisitado(String ingreso,String salida)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query q = pm.newQuery(SQL, "SELECT T2.TIPO_ESTABLECIMIENTO FROM (SELECT COUNT(*) AS conteo,t1.tipo_establecimiento FROM(SELECT a_establecimiento.tipo_establecimiento FROM A_VISITAS,A_LECTOR_CARNET,A_ESPACIO,A_ESTABLECIMIENTO WHERE (hora_ingreso > TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND (hora_salida < TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND a_visitas.id_lector_carnet = a_lector_carnet.id AND a_lector_carnet.id_espacio = a_espacio.id AND A_ESPACIO.ID = A_ESTABLECIMIENTO.ID)T1 GROUP BY T1.tipo_establecimiento order by conteo DESC)T2 WHERE ROWNUM=1;");
+
+		q.setResultClass(String.class);
+		q.setParameters(ingreso,salida);
+		return (List<String>) q.executeUnique();
+	}
+
+	public List<String> tipoEstablecimientosMenosVisitado(String ingreso,String salida)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query q = pm.newQuery(SQL, "SELECT T2.TIPO_ESTABLECIMIENTO FROM (SELECT COUNT(*) AS conteo,t1.tipo_establecimiento FROM(SELECT a_establecimiento.tipo_establecimiento FROM A_VISITAS,A_LECTOR_CARNET,A_ESPACIO,A_ESTABLECIMIENTO WHERE (hora_ingreso > TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND (hora_salida < TO_TIMESTAMP(?,'DD/MM/YYYY HH24:MI:SSXFF')) AND a_visitas.id_lector_carnet = a_lector_carnet.id AND a_lector_carnet.id_espacio = a_espacio.id AND A_ESPACIO.ID = A_ESTABLECIMIENTO.ID)T1 GROUP BY T1.tipo_establecimiento order by conteo ASC)T2 WHERE ROWNUM=1;");
+
+		q.setResultClass(String.class);
+		q.setParameters(ingreso,salida);
+		return (List<String>) q.executeUnique();
+	}
+	//---------------------------------------------------------------------------------------------//
 
 	public double mostrarIndiceAforoCC(long idEspacio)
 	{

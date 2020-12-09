@@ -82,5 +82,6 @@ public class SQLVisitante {
 		q.setResultClass(Long.class);
 		return (List<Long>) q.executeList();
 	}
+
 	
 }

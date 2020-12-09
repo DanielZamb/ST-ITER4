@@ -28,6 +28,7 @@ public class Controller {
             switch (option){
                 case 0:
                     fin = true;
+                    break;
                 case 1:
                     int a = 0;
                     view.printMessage("[");
@@ -37,7 +38,7 @@ public class Controller {
                     }
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla a_VISITANTES: " +a);
-                    
+                    break;
                 case 2:
                 	int b = 0;
                     view.printMessage("[");
@@ -47,7 +48,7 @@ public class Controller {
                     }
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla a_LECTOR_CARNET: " +b);
-                    
+                    break;
                 case 3:
                 	int c = 0;
                 	view.printMessage("[");
@@ -57,6 +58,7 @@ public class Controller {
                     }
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla a_ESPACIO: " +c);
+                    break;
                 case 4:
                 	int d = 0;
                 	view.printMessage("[");
@@ -66,7 +68,7 @@ public class Controller {
                     }
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla a_ESTABLECIMIENTO: " +d);
-                    
+                    break;
                 case 5:
                 	int e = 0;
                 	view.printMessage("[");
@@ -76,6 +78,7 @@ public class Controller {
                     }
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla a_VISITAS: " +e);
+                    break;
             }               
         }
     }

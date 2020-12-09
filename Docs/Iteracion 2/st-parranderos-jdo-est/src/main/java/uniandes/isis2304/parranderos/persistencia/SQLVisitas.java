@@ -118,17 +118,6 @@ public class SQLVisitas {
         q.setParameters(idVisitante,idLector);
         return (List<Visitas>) q.executeUnique();
     }
-
-
-    public List<Visitas> darVisitas (PersistenceManager pm)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaVisitas());
-		q.setResultClass(Visitante.class);
-		return (List<Visitas>) q.executeList();
-	}
-    
- 
-   
     public long eliminarVisitaPorId (PersistenceManager pm, long idVisita)
     {
         Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaVisitas() + " WHERE id = ?");

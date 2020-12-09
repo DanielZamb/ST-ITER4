@@ -13,6 +13,10 @@ public class View {
         System.out.println("Interfaz AFOROCC C-10");
         System.out.println("0.Terminar ejecucion");
         System.out.println("1.Ejecutar un select de visitantes");
+        System.out.println("2.Ejecutar un select de lectorCarnet");
+        System.out.println("3.Ejecutar un select de espacio");
+        System.out.println("4.Ejecutar un select de establecimiento");
+        System.out.println("5.Ejecutar un select de visitas");
     }
 
     public void printMessage(String mensaje) {

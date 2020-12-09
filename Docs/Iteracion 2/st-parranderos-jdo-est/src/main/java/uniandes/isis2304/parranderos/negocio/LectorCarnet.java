@@ -2,28 +2,28 @@ package uniandes.isis2304.parranderos.negocio;
 
 public class LectorCarnet implements VOLectorCarnet {
 
-	private long id_lector;
+	private long id;
 	
 	private long id_espacio;
 	
 	public LectorCarnet()
 	{
-		this.id_lector = 0;
+		this.id = 0;
 		this.id_espacio = 0;
 	}
 	
-	public LectorCarnet(long lector, long espacio)
+	public LectorCarnet(long id, long espacio)
 	{
-		this.id_lector = lector;
+		this.id = id;
 		this.id_espacio = espacio;
 	}
 
-	public long getId_lector() {
-		return id_lector;
+	public long getId() {
+		return id;
 	}
 
-	public void setId_lector(long id_lector) {
-		this.id_lector = id_lector;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public long getId_espacio() {
@@ -37,8 +37,8 @@ public class LectorCarnet implements VOLectorCarnet {
 	@Override
 	public String toString() {
 		return "LectorCarnet{" +
-				"idLector=" + id_lector +
-				", idEspacio=" + id_espacio +
+				"id=" + id +
+				", id_espacio=" + id_espacio +
 				'}';
 	}
 }

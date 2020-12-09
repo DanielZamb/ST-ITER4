@@ -66,10 +66,10 @@ public class PersistenciaAforo {
 		tablas = new LinkedList<String> ();
 		tablas.add("AFORO_SEQUENCE");
 		tablas.add("A_ESPACIO");
-		tablas.add("A_AFOROACTUAL");
-		tablas.add("A_AFOROMAXIMO");
-		tablas.add("A_LECTORCARNET");
-		tablas.add("A_CENTROCOMERCIAL");
+		tablas.add("A_AFORO_ACTUAL");
+		tablas.add("A_AFORO_MAXIMO");
+		tablas.add("A_LECTOR_CARNET");
+		tablas.add("A_CENTRO_COMERCIAL");
 		tablas.add("A_ESTABLECIMIENTO");
 		tablas.add("A_VISITANTE");
 		tablas.add("A_TIPO_VISITANTE");
@@ -263,7 +263,7 @@ public class PersistenciaAforo {
 		List<Visitas> rta = new ArrayList<>();
 		try{
 			tx.begin();
-			rta = sqlVisitas.darVisitas(pm);
+			rta = sqlVisitas.darTodasLasVisitas(pm);
 		}
 		catch (Exception e){
 			if(tx.isActive())

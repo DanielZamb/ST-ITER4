@@ -51,7 +51,7 @@ public class SQLEstablecimiento {
 	public List<Establecimiento> darEstablecimientos (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaEstablecimiento ());
-		q.setResultClass(LectorCarnet.class);
+		q.setResultClass(Establecimiento.class);
 		return (List<Establecimiento>) q.executeList();
 	}
 	

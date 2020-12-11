@@ -14,14 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import uniandes.isis2304.parranderos.negocio.AforoActual;
-import uniandes.isis2304.parranderos.negocio.AforoMaximo;
-import uniandes.isis2304.parranderos.negocio.CentroComercial;
-import uniandes.isis2304.parranderos.negocio.Espacio;
-import uniandes.isis2304.parranderos.negocio.Establecimiento;
-import uniandes.isis2304.parranderos.negocio.LectorCarnet;
-import uniandes.isis2304.parranderos.negocio.Visitante;
-import uniandes.isis2304.parranderos.negocio.Visitas;
+import uniandes.isis2304.parranderos.negocio.*;
 
 public class PersistenciaAforo {
 
@@ -45,7 +38,8 @@ public class PersistenciaAforo {
 	
 	private SQLLectorCarnet sqlLectorCarnet;
 
-	
+	private SQLCVisitasView sqlCvisitas_view;
+
 	private SQLCentroComercial sqlCentroComercial;
 	
 	private SQLEstablecimiento sqlEstablecimiento;
@@ -75,6 +69,7 @@ public class PersistenciaAforo {
 		tablas.add("A_TIPO_VISITANTE");
 		tablas.add("A_VISITAS");
 		tablas.add("A_TIPO_LUGAR");
+		tablas.add("CVISITAS");
 			
 	}
 	
@@ -137,6 +132,7 @@ public class PersistenciaAforo {
 		sqlTipoVisitante = new SQLTipoVisitante(this);
 		sqlVisitas = new SQLVisitas(this);
 		sqlTipoLugar = new SQLTipoLugar(this);
+		sqlCvisitas_view = new SQLCVisitasView(this);
 		
 	}
 	
@@ -193,6 +189,7 @@ public class PersistenciaAforo {
 		return tablas.get (10);
 	}
 
+	public String darVistaVisitas() { return tablas.get(11); }
 	
 	
 	
@@ -352,7 +349,37 @@ public class PersistenciaAforo {
 		}
 		return rta;
 	}
-	
+	public List<Cvisitas_VIEW> darCvisitas(){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Cvisitas_VIEW> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlCvisitas_view.darTuplasCvisitas(pm);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
+
+	public List<Cvisitas_VIEW> executeQueryCvisitas(String query){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Cvisitas_VIEW> rta = new ArrayList<>();
+		try{
+			tx.begin();
+			rta = sqlCvisitas_view.queryCvistas(pm,query);
+		}
+		catch (Exception e){
+			if(tx.isActive())
+				tx.rollback();
+			pm.close();
+		}
+		return rta;
+	}
 	
 
 	public double mostrarIndiceAforoCC(long idEspacio)
@@ -428,7 +455,7 @@ public class PersistenciaAforo {
 			List<Visitas> list = sqlVisitas.darVisitasRangoTiempoIdVisitante(pm,idVisitante,inStart,inEnd);
 			List<Long> ids = new ArrayList<>();
 			for (Visitas v: list) {
-				ids.addAll(sqlVisitas.darIdVisitanteVisitasRangoTiempoLectorCarnet(pm,v.getId_lector_carnet(),v.getHora_ingreso(),v.getHora_salida()));
+				ids.addAll(sqlVisitas.darIdVisitanteVisitasRangoTiempoLectorCarnet(pm,v.getId_lector_carnet(),v.getHora_ingreso().toString(),v.getHora_salida().toString()));
 			}
 			for (Long idV: ids){
 				visitantes.add(sqlVisitante.darVisitantePorId(pm,idV));
@@ -468,17 +495,17 @@ public class PersistenciaAforo {
 			}
 			for (int i=0;i<visitantesId.size();i++) {
 				List<Visitas> visitasAlMismoLocal = sqlVisitas.darVisitaPorIdVisitanteIdLector(pm,visitantesId.get(i),lectoresId.get(i));
-				String fechaHora[] = visitasAlMismoLocal.get(0).getHora_ingreso().split(" ");
+				String fechaHora[] = visitasAlMismoLocal.get(0).getHora_ingreso().toString().split(" ");
 				String mes = fechaHora[0].split("/")[1];
 				int cont2 = 0;
 				for (Visitas v : visitasAlMismoLocal ){
-					if (mes == v.getHora_ingreso().split(" ")[0].split("/")[1]) cont++;
+					if (mes == v.getHora_ingreso().toString().split(" ")[0].split("/")[1]) cont++;
 					else {
 						if (cont>=3){
 							visitantes.add(sqlVisitante.darVisitantePorId(pm,v.getId_visitante()));
 						}
 						else cont = 0;
-						mes = v.getHora_ingreso().split(" ")[0].split("/")[1];
+						mes = v.getHora_ingreso().toString().split(" ")[0].split("/")[1];
 					}
 				}
 			}

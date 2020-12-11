@@ -1,19 +1,21 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import oracle.sql.TIMESTAMP;
+
 public class Visitas implements VOVisitas{
     private long id_lector_carnet;
     private long id_visitante;
-    private String hora_ingreso;
-    private String hora_salida;
+    private TIMESTAMP hora_ingreso;
+    private TIMESTAMP hora_salida;
 
     public Visitas() {
         this.id_lector_carnet = 0;
         this.id_visitante = 0;
-        this.hora_ingreso = "";
-        this.hora_salida = "";
+        this.hora_ingreso = new TIMESTAMP();
+        this.hora_salida = new TIMESTAMP();
     }
 
-    public Visitas(long id_lector_carnet, long id_visitante, String hora_ingreso, String hora_salida) {
+    public Visitas(long id_lector_carnet, long id_visitante, TIMESTAMP hora_ingreso, TIMESTAMP hora_salida) {
         this.id_lector_carnet = id_lector_carnet;
         this.id_visitante = id_visitante;
         this.hora_ingreso = hora_ingreso;
@@ -36,19 +38,19 @@ public class Visitas implements VOVisitas{
         this.id_visitante = id_visitante;
     }
 
-    public String getHora_ingreso() {
+    public TIMESTAMP getHora_ingreso() {
         return hora_ingreso;
     }
 
-    public void setHora_ingreso(String hora_ingreso) {
+    public void setHora_ingreso(TIMESTAMP hora_ingreso) {
         this.hora_ingreso = hora_ingreso;
     }
 
-    public String getHora_salida() {
+    public TIMESTAMP getHora_salida() {
         return hora_salida;
     }
 
-    public void setHora_salida(String hora_salida) {
+    public void setHora_salida(TIMESTAMP hora_salida) {
         this.hora_salida = hora_salida;
     }
 
@@ -57,8 +59,8 @@ public class Visitas implements VOVisitas{
         return "Visitas{" +
                 "id_lector_carnet=" + id_lector_carnet +
                 ", id_visitante=" + id_visitante +
-                ", hora_ingreso='" + hora_ingreso + '\'' +
-                ", hora_salida='" + hora_salida + '\'' +
+                ", hora_ingreso='" + hora_ingreso.toString() + '\'' +
+                ", hora_salida='" + hora_salida.toString() + '\'' +
                 '}';
     }
 }

@@ -135,7 +135,7 @@ public class SQLVisitas {
     public List<Visitas> darTodasLasVisitas (PersistenceManager pm){
         Query q = pm.newQuery(SQL, "SELECT * FROM "+pa.darTablaVisitas());
         q.setResultClass(Visitas.class);
-        return (List<Visitas>) q.executeUnique();
+        return (List<Visitas>) q.executeList();
     }
     public TipoVisitante updateVisita(PersistenceManager pm, long id_lector_carnet,long id_espacio, Visitas visita){
         Query q = pm.newQuery(SQL, "UPDATE "+pa.darTablaVisitas()+" SET hora_ingreso = ?, hora_salida = ? WHERE id_lector_carnet = ? AND id_espacio = ?");

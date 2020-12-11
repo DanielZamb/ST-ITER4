@@ -365,4 +365,39 @@ public class Cvisitas_VIEW implements VOCvisitas_VIEW {
                 ", id_cc=" + id_cc +
                 '}';
     }
+    public String toStringVariable() {
+        StringBuilder s = new StringBuilder();
+        s.append("Cvisitas_VIEW{");
+        if (visitante_id!=null) s.append("visitante_id=" + visitante_id);
+        if (tipo_identificacion!=null) s.append(", tipo_identificacion=\'").append(tipo_identificacion).append("\'");
+        if (temperatura!=null) s.append(", temperatura=").append(temperatura);;
+        if (correo!=null) s.append(", correo='").append(correo).append("\'");
+        if(telefono!=null) s.append(", telefono='").append(telefono).append("\'");
+        if(nombre_contacto!=null) s.append(", nombre_contacto='").append(nombre_contacto).append("\'");
+        if(telefono_contacto!=null) s.append(", telefono_contacto='").append(telefono_contacto).append("\'");
+        if(positivo!=null) s.append(", positivo='").append(positivo).append("\'");
+        if(visitante_color!=null) s.append(", visitante_color='").append(visitante_color).append("\'");
+        if(tipo!=null) s.append(", tipo=").append(tipo);
+        if(id_lector_carnet!=null)s.append(", id_lector_carnet=").append(id_lector_carnet);
+        if(id_visitante!=null)s.append(", id_visitante=").append(id_visitante);
+        if(hora_ingreso!=null)s.append(", hora_ingreso=").append(hora_ingreso);
+        if(hora_salida!=null)s.append(", hora_salida=").append(hora_salida);
+        if(espacio_id!=null)s.append(", espacio_id=").append(espacio_id);
+        if(capacidad_original!=null)s.append(", capacidad_original=").append(capacidad_original);
+        if(hora_apertura!=null)s.append(", hora_apertura='").append(hora_apertura).append("\'");
+        if(hora_cierre!=null)s.append(", hora_cierre='").append(hora_cierre).append("\'");
+        if(descripcion!=null)s.append(", descripcion='").append(descripcion).append("\'");
+        if(espacio_color!=null)s.append(", espacio_color='").append(espacio_color).append("\'");
+        if(tipo_lugar_id!=null)s.append(", tipo_lugar_id=").append(tipo_lugar_id);
+        if(tipo_lugar!=null)s.append(", tipo_lugar=").append(tipo_lugar).append("\'");
+        if(cons_aforo!=null)s.append(", cons_aforo='").append(cons_aforo).append("\'");
+        if(establecimiento_id!=null)s.append(", establecimiento_id=").append(establecimiento_id);
+        if(area!=null)s.append(", area=").append(area);
+        if(establecimiento_nombre!=null)s.append(", establecimiento_nombre='").append(establecimiento_nombre).append("\'");
+        if(cerrado!=null)s.append(", cerrado='").append(cerrado).append("\'");
+        if(tipo_establecimiento!=null)s.append(", tipo_establecimiento='").append(tipo_establecimiento).append("\'");
+        if(id_cc!=null)s.append(", id_cc=").append(id_cc);
+        s.append('}');
+        return s.toString();
+    }
 }

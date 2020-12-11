@@ -33,4 +33,5 @@ public interface VOCvisitas_VIEW {
     public String getTipo_establecimiento();
     public Long getId_cc();
     public String toString();
+    public String toStringVariable();
 }

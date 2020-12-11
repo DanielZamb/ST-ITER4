@@ -17,7 +17,7 @@ public class AforoCC {
         pp = PersistenciaAforo.getInstance();
         cvisitasMap.put(1,"visitante_id");
         cvisitasMap.put(2,"tipo_identificacion");
-        cvisitasMap.put(3,"tempreatura");
+        cvisitasMap.put(3,"temperatura");
         cvisitasMap.put(4,"correo");
         cvisitasMap.put(5,"telefono");
         cvisitasMap.put(6,"nombre_contacto");
@@ -115,7 +115,7 @@ public class AforoCC {
     }
     public String manageCvisitasQuery(String sort, String[] sParams, String[] sTypes){
         StringBuilder query = new StringBuilder("SELECT * FROM CVISITAS");
-        if (sort.equals("Y")){
+        if (sort.equalsIgnoreCase("Y")){
             query.append(" ORDER BY");
             for (int i=0;i<sParams.length;i++){
                 if(i==sParams.length-1){
@@ -127,11 +127,46 @@ public class AforoCC {
         }
         return query.toString();
     }
+    public String manageCvisitasQuery(String group, String[] gParams,String sort, String[] sParams, String[] sTypes){
+        StringBuilder query = new StringBuilder("SELECT ");
+        boolean groupAppend = false;
+        if (group.equalsIgnoreCase("Y")){
+            for (int i=0;i<gParams.length;i++){
+                if(i==gParams.length-1){
+                    query.append(" ").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(Integer.parseInt(gParams[i]))).append(" ");
+                }
+                else
+                    query.append(" ").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(Integer.parseInt(gParams[i]))).append(" ").append(",");
+            }
+            query.append(" FROM CVISITAS");
+            groupAppend = true;
+        }
+        else if (group.equalsIgnoreCase("N")){
+           query.append(" * FROM CVISITAS");
+        }
+        if (sort.equalsIgnoreCase("Y")){
+
+            query.append(" ORDER BY");
+            for (int i=0;i<sParams.length;i++){
+                if(i==sParams.length-1){
+                    query.append(" ").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(Integer.parseInt(sParams[i]))).append(" ").append(sTypes[i]);
+                }
+                else
+                    query.append(" ").append(pp.darVistaVisitas()).append(".").append(cvisitasMap.get(Integer.parseInt(sParams[i]))).append(" ").append(sTypes[i]).append(",");
+            }
+        }
+
+
+        return query.toString();
+    }
     public List<VOCvisitas_VIEW> getQueryCvisitasResults(String query){
         log.info("Generado los VO de la vista materializada");
         List<VOCvisitas_VIEW> voCvisitas_views = new LinkedList<>(pp.executeQueryCvisitas(query));
         log.info("Generado los VO de la vista materializada: "+voCvisitas_views.size()+ " existentes" );
         return voCvisitas_views;
+    }
+    public Map<Integer,String> tablaInd(){
+        return cvisitasMap;
     }
     public long [] limpiarAforo ()
     {

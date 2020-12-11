@@ -4,6 +4,8 @@ import uniandes.isis2304.parranderos.negocio.*;
 import uniandes.isis2304.parranderos.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Controller {
@@ -84,56 +86,17 @@ public class Controller {
                     view.printMessage("]");
                     view.printMessage("numero de tuplas en la tabla CVISITAS: " +f);
                     break;
-                case 7:
+                case 10:
                     String atr1 = "";
                     String atr2 = "";
                     String tipOrden = "";
+                    int M = 0;
+                    view.printMessage("\tSELECCIONE EL NUMERO DE FILAS QUE QUIERE VER EN EL RESULTADO DE LA CONSULTA:\n ");
+                    M= reader.nextInt();
                     view.printMessage("\tSELECCIONE LO QUE QUIERE HACER EN LA CONSULTA:\n ");
                     view.printMessage("\t\tQuiere agrupar informacion? Y/N");
                     String agrupar = reader.next();
-                    if (agrupar.equals("Y")){
-                        System.out.print("\t\tEn la vista CVISITAS se tienen lo siguientes atributos: \n" +
-                            "\t\t VISITANTE:\n" +
-                                    "\t\t\t 1) id\n" +
-                                    "\t\t\t 2) tipo de identificacion\n" +
-                                    "\t\t\t 3) temperatura\n" +
-                                    "\t\t\t 4) correo\n" +
-                                    "\t\t\t 5) telefono\n" +
-                                    "\t\t\t 6) nombre contacto\n" +
-                                    "\t\t\t 7) telefono de contacto\n" +
-                                    "\t\t\t 8) positivo\n" +
-                                    "\t\t\t 9) color\n" +
-                            "\t\t VISITAS:\n" +
-                                    "\t\t\t 10) id del lector de carnet \n" +
-                                    "\t\t\t 11) id del visitante \n " +
-                                    "\t\t\t 12) hora de ingreso al lugar\n" +
-                                    "\t\t\t 13) hora de salida del lugar\n" +
-                            "\t\t ESPACIO:\n" +
-                                    "\t\t\t 14) id\n" +
-                                    "\t\t\t 15) capacidad original\n" +
-                                    "\t\t\t 16) hora apertura\n" +
-                                    "\t\t\t 17) hora cierre\n" +
-                                    "\t\t\t 18) descripcion\n" +
-                                    "\t\t\t 19) color\n" +
-                                    "\t\t\t 20) tipo de lugar\n" +
-                            "\t\t TIPO LUGAR:\n" +
-                                    "\t\t\t 21) tipo de lugar (descripcion)\n" +
-                                    "\t\t\t 22) constante de aforo\n" +
-                            "\t\t ESTABLECIMIENTO:\n" +
-                                    "\t\t\t 23) id\n" +
-                                    "\t\t\t 24) area\n" +
-                                    "\t\t\t 25) nombre\n" +
-                                    "\t\t\t 26) cerrado\n" +
-                                    "\t\t\t 27) tipo de estableciemiento\n" +
-                                    "\t\t\t 28) id del centro comercial\n" +
-                            "Escriba los numeros de los atributos por lo cuales quiere agrupar, seprardos por comas\n" +
-                                    "Ej: 1,5,7,...,28"
-                            );
-                        atr1 = reader.next();
-                    }
-                    view.printMessage("\t\tQuiere ordernar informacion? Y/N");
-                    String ordenar = reader.next();
-                    if (ordenar.equals("Y")){
+                    if (agrupar.equalsIgnoreCase("Y")){
                         System.out.print("\t\tEn la vista CVISITAS se tienen lo siguientes atributos: \n" +
                                 "\t\t VISITANTE:\n" +
                                 "\t\t\t 1) id\n" +
@@ -145,54 +108,100 @@ public class Controller {
                                 "\t\t\t 7) telefono de contacto\n" +
                                 "\t\t\t 8) positivo\n" +
                                 "\t\t\t 9) color\n" +
+                                "\t\t\t 10) tipo\n" +
                                 "\t\t VISITAS:\n" +
-                                "\t\t\t 10) id del lector de carnet \n" +
-                                "\t\t\t 11) id del visitante \n " +
-                                "\t\t\t 12) hora de ingreso al lugar\n" +
-                                "\t\t\t 13) hora de salida del lugar\n" +
+                                "\t\t\t 11) id del lector de carnet \n" +
+                                "\t\t\t 12) id del visitante \n " +
+                                "\t\t\t 13) hora de ingreso al lugar\n" +
+                                "\t\t\t 14) hora de salida del lugar\n" +
                                 "\t\t ESPACIO:\n" +
-                                "\t\t\t 14) id\n" +
-                                "\t\t\t 15) capacidad original\n" +
-                                "\t\t\t 16) hora apertura\n" +
-                                "\t\t\t 17) hora cierre\n" +
-                                "\t\t\t 18) descripcion\n" +
-                                "\t\t\t 19) color\n" +
-                                "\t\t\t 20) tipo de lugar\n" +
+                                "\t\t\t 15) id\n" +
+                                "\t\t\t 16) capacidad original\n" +
+                                "\t\t\t 17) hora apertura\n" +
+                                "\t\t\t 18) hora cierre\n" +
+                                "\t\t\t 19) descripcion\n" +
+                                "\t\t\t 20) color\n" +
+                                "\t\t\t 21) tipo de lugar\n" +
                                 "\t\t TIPO LUGAR:\n" +
-                                "\t\t\t 21) tipo de lugar (descripcion)\n" +
-                                "\t\t\t 22) constante de aforo\n" +
+                                "\t\t\t 22) tipo de lugar (descripcion)\n" +
+                                "\t\t\t 23) constante de aforo\n" +
                                 "\t\t ESTABLECIMIENTO:\n" +
-                                "\t\t\t 23) id\n" +
-                                "\t\t\t 24) area\n" +
-                                "\t\t\t 25) nombre\n" +
-                                "\t\t\t 26) cerrado\n" +
-                                "\t\t\t 27) tipo de estableciemiento\n" +
-                                "\t\t\t 28) id del centro comercial\n" +
+                                "\t\t\t 24) id\n" +
+                                "\t\t\t 25) area\n" +
+                                "\t\t\t 26) nombre\n" +
+                                "\t\t\t 27) cerrado\n" +
+                                "\t\t\t 28) tipo de estableciemiento\n" +
+                                "\t\t\t 29) id del centro comercial\n" +
                                 "Escriba los numeros de los atributos por lo cuales quiere ordenar, seprardos por comas\n" +
-                                "Ej: 1,5,7,...,28"
+                                "Ej: 1,5,7,...,29\n"
+                            );
+                        atr1 = reader.next();
+                    }
+                    view.printMessage("\t\tQuiere ordernar informacion? Y/N");
+                    String ordenar = reader.next();
+                    if (ordenar.equalsIgnoreCase("Y")){
+                        System.out.print("\t\tEn la vista CVISITAS se tienen lo siguientes atributos: \n" +
+                                "\t\t VISITANTE:\n" +
+                                "\t\t\t 1) id\n" +
+                                "\t\t\t 2) tipo de identificacion\n" +
+                                "\t\t\t 3) temperatura\n" +
+                                "\t\t\t 4) correo\n" +
+                                "\t\t\t 5) telefono\n" +
+                                "\t\t\t 6) nombre contacto\n" +
+                                "\t\t\t 7) telefono de contacto\n" +
+                                "\t\t\t 8) positivo\n" +
+                                "\t\t\t 9) color\n" +
+                                "\t\t\t 10) tipo\n" +
+                                "\t\t VISITAS:\n" +
+                                "\t\t\t 11) id del lector de carnet \n" +
+                                "\t\t\t 12) id del visitante \n " +
+                                "\t\t\t 13) hora de ingreso al lugar\n" +
+                                "\t\t\t 14) hora de salida del lugar\n" +
+                                "\t\t ESPACIO:\n" +
+                                "\t\t\t 15) id\n" +
+                                "\t\t\t 16) capacidad original\n" +
+                                "\t\t\t 17) hora apertura\n" +
+                                "\t\t\t 18) hora cierre\n" +
+                                "\t\t\t 19) descripcion\n" +
+                                "\t\t\t 20) color\n" +
+                                "\t\t\t 21) tipo de lugar\n" +
+                                "\t\t TIPO LUGAR:\n" +
+                                "\t\t\t 22) tipo de lugar (descripcion)\n" +
+                                "\t\t\t 23) constante de aforo\n" +
+                                "\t\t ESTABLECIMIENTO:\n" +
+                                "\t\t\t 24) id\n" +
+                                "\t\t\t 25) area\n" +
+                                "\t\t\t 26) nombre\n" +
+                                "\t\t\t 27) cerrado\n" +
+                                "\t\t\t 28) tipo de estableciemiento\n" +
+                                "\t\t\t 29) id del centro comercial\n" +
+                                "Escriba los numeros de los atributos por lo cuales quiere ordenar, seprardos por comas\n" +
+                                "Ej: 1,5,7,...,28\n"
                         );
                         atr2 = reader.next();
                         view.printMessage("\t\tEscriba el para cada atributo en que tipo de orden lo quiere ordenar" +
-                                "Ej; ASC,DESC,DESC,...,ASC");
+                                "Ej; ASC,DESC,DESC,...,ASC\n");
                         tipOrden = reader.next();
                         while  (atr2.split(",").length != tipOrden.split(",").length) {
                             view.printMessage("los atributos a ordernar y el tipo de orden no tienen la misma longitud, por favor corrija");
-                            view.printMessage("Atributos:");
+                            view.printMessage("Atributos:\n");
                             atr2 = reader.next();
-                            view.printMessage("Tipo Orden:");
+                            view.printMessage("Tipo Orden:\n");
                             tipOrden =reader.next();
                         };
                     }
-                    String query = modelo.manageCvisitasQuery(ordenar,atr2.split(","),tipOrden.split(","));
+                    String query = modelo.manageCvisitasQuery(agrupar,atr1.split(","),ordenar,atr2.split(","),tipOrden.split(","));
+                    ArrayList<String> group = new ArrayList<>();
+                    for (String s : atr1.split(",") ){
+                        group.add(modelo.tablaInd().get(Integer.parseInt(s)));
+                    };
                     //metodo que maneje A,F,O
-                    int g = 0;
+                    List<VOCvisitas_VIEW> resultList = modelo.getQueryCvisitasResults(query);
                     view.printMessage("[");
-                    for (VOCvisitas_VIEW vt : modelo.getQueryCvisitasResults(query)){
-                        view.printMessage(vt.toString()+" ,");
-                        g++;
+                    for(int i=0;i<M;i++){
+                        view.printMessage(resultList.get(i).toStringVariable());
                     }
                     view.printMessage("]");
-                    view.printMessage("numero de tuplas en la tabla CVISITAS: " +g);
                     break;
             }               
         }
